@@ -30,14 +30,8 @@ const showScrollIndicator =
     <title>{pageTitle}</title>
     <ClientRouter />
     <script is:inline>
-      const isDarkMode =
-        window.matchMedia &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches;
-      if (isDarkMode) {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
+      // Force light theme for a bright UI with dark text
+      document.documentElement.classList.remove("dark");
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -87,7 +81,7 @@ const showScrollIndicator =
       }
 
       html.dark {
-        --bg-color: #121212;
+        #--bg-color: #121212;
         --text-color: #e3e3e3;
         --text-muted: #d4d4d4;
         --link-color: var(--text-color);
@@ -332,19 +326,10 @@ const showScrollIndicator =
       document.addEventListener("astro:page-load", setupSectionAnimations);
     </script>
     <script>
-      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-
-      const checkAndApplyTheme = () => {
-        if (mediaQuery.matches) {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
-        }
-      };
-
-      mediaQuery.addEventListener("change", checkAndApplyTheme);
-
-      document.addEventListener("astro:page-load", checkAndApplyTheme);
+      // Keep forcing light theme regardless of system preference
+      const ensureLight = () => document.documentElement.classList.remove("dark");
+      ensureLight();
+      document.addEventListener("astro:page-load", ensureLight);
     </script>
   </head>
   <body>
