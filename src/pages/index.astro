@@ -2,10 +2,10 @@
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/home/Hero.astro";
 import SectionWrapper from "../components/home/SectionWrapper.astro";
-import AboutMeContent from "../components/home/content/AboutMeContent.astro";
-import FeaturedWorksContent from "../components/home/content/FeaturedWorksContent.astro";
-import HighlightsUpdatesContent from "../components/home/content/HighlightsUpdatesContent.astro";
-import ConnectContent from "../components/home/content/ConnectContent.astro";
+//import AboutMeContent from "../components/home/content/AboutMeContent.astro";
+//import FeaturedWorksContent from "../components/home/content/FeaturedWorksContent.astro";
+//import HighlightsUpdatesContent from "../components/home/content/HighlightsUpdatesContent.astro";
+//import ConnectContent from "../components/home/content/ConnectContent.astro";
 ---
 
 <Layout title="Homepage">
@@ -13,7 +13,26 @@ import ConnectContent from "../components/home/content/ConnectContent.astro";
     <Hero />
 
     <SectionWrapper>
-      <AboutMeContent />
+    <script 
+      async src="https://subscribe-forms.beehiiv.com/embed.js">
+    </script>
+    <iframe 
+      src="https://subscribe-forms.beehiiv.com/344d0ef3-4bc6-4411-a71a-769e72282416" 
+      class="beehiiv-embed" data-test-id="beehiiv-embed" frameborder="0" scrolling="no" 
+      style=
+      "width: 660px; 
+      height: 415px; 
+      margin: 0; 
+      border-radius: 0px 0px 0px 0px !important; 
+      background-color: transparent; 
+      box-shadow: 0 0 #0000; 
+      max-width: 100%;"
+      >
+    </iframe>
+  </SectionWrapper>
+
+<!--     <SectionWrapper>
+     <AboutMeContent />
     </SectionWrapper>
 
     <SectionWrapper>
@@ -26,7 +45,7 @@ import ConnectContent from "../components/home/content/ConnectContent.astro";
 
     <SectionWrapper>
       <ConnectContent />
-    </SectionWrapper>
+    </SectionWrapper>  -->
   </main>
 </Layout>
 
