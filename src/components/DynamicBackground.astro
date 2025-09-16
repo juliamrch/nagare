@@ -17,7 +17,7 @@
       ("maxTouchPoints" in navigator && navigator.maxTouchPoints > 0) ||
       window.innerWidth < 1024;
     const config = {
-      numBlobs: isMobileDevice ? 3 : 4,
+      numBlobs: isMobileDevice ? 2 : 4,
       baseLargeMinBlobSize: 1000,
       baseLargeMaxBlobSize: 1600,
       baseSmallMinBlobSize: 600,
@@ -26,7 +26,7 @@
       minScaleFactor: 0.5,
       maxScaleFactor: 1.5,
       // Keep animations lively on mobile
-      speedMultiplier: isMobileDevice ? 1 : 1,
+      speedMultiplier: isMobileDevice ? 0.6 : 1,
       mouseInfluenceRadius: 580,
       mouseForce: -800,
       opacity: 0.8,
