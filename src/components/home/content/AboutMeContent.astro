@@ -1,22 +1,21 @@
 ---
 // Content for the "Meet me!" section
 import Button from "../../common/Button.astro";
-
-const resumeUrl = "/resume";
+import About from "./_about.mdx"
+//const resumeUrl = "/resume";
 // const contactUrl = "/contact";
 ---
 
 <h2 slot="title" class="about-title scroll-target-title">What's sobun</h2>
 
-<div class="about-content scroll-target-content">
+<div class="about-content">
   <p>
-    Coming soon
+    <About />
   </p>
 
   <p>
-    Coming<strong>soon</strong>
   </p>
-
+<!--
   <div class="button-group">
     <Button
       class="button"
@@ -34,3 +33,4 @@ const resumeUrl = "/resume";
     margin-top: 2rem;
   }
 </style>
+-->
