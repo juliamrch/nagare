@@ -29,8 +29,8 @@ export const allServicesData: ServiceDataItem[] = [
         <p>Audit existing docs with a detailed friction journal containing:</p>
         <ul>
           <li>Where you're losing users and revenue.</li>
-          <li>Root causes of friction</li>
-          <li>Immediately actionable recommendations</li>
+          <li>Root causes of friction.</li>
+          <li>Immediately actionable recommendations.</li>
         </ul>
         
 
@@ -51,15 +51,15 @@ export const allServicesData: ServiceDataItem[] = [
     description: `
         <p>Bring your docs to the next level with this monthly subscription including:</p>
         <ul>
-          <li>Continuous documentation audit</li>
-          <li>Monthly documentation updates and improvements</li>
-          <li>User research and testing</li>
+          <li>Continuous documentation audit.</li>
+          <li>Monthly documentation updates and improvements.</li>
+          <li>User research and testing.</li>
         </ul>
         
         <h4>Perks:</h4>
          <ul>
           <li>Cancel anytime.</li>
-          <li><strong>Open Source project?</strong> Get 50% off.</li>
+          <li><strong>Open-source project?</strong> Get 50% off.</li>
         </ul>
 
       `,
