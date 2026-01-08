@@ -18,11 +18,11 @@ export interface ProjectDataItem {
 // Example data (replace with your actual data later)
 export const allProjectsData: ProjectDataItem[] = [
   {
-    title: "Coming soon",
+    title: "Philosophy",
     timeframe: "Q4 2023",
     githubUrl: "",
-    projectUrl: "",
-    techStack: ["Hugo", "GitHub Actions"],
+    projectUrl: "/projects/philosophy",
+    techStack: ["Technical Writing", "Instructional Design"],
     imageSrc: "/images/projects/nagare.png",
     imageAlt: "Screenshot of the portfolio website homepage",
     description: `

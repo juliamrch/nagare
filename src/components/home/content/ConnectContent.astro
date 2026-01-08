@@ -7,27 +7,37 @@ const contactUrl = "/contact";
 
 <h2 slot="title" class="about-title scroll-target-title">Keep in touch</h2>
 
-<div class="about-content scroll-target-content">
-  <p>
-    This is the contact section where you can share your professional interests
-    and how others can reach you. Customize this text to describe what you're
-    looking for, whether it's job opportunities, collaborations, or networking.
-  </p>
-  <p>
-    Below are some example contact links. Replace them with your own social
-    media profiles, email, and other relevant contact information.
-  </p>
+  <script 
+        async src="https://subscribe-forms.beehiiv.com/embed.js">
+      </script>
+      <iframe
+        loading="lazy" 
+        src="https://subscribe-forms.beehiiv.com/344d0ef3-4bc6-4411-a71a-769e72282416" 
+        class="beehiiv-embed" data-test-id="beehiiv-embed" frameborder="0" scrolling="no" 
+        style=
+        "width: 660px; 
+        height: 415px; 
+        margin: 0; 
+        border-radius: 0px 0px 0px 0px !important; 
+        background-color: transparent; 
+        box-shadow: 0 0 #0000; 
+        max-width: 100%;
+        display: block;
+        
+        "
+        >
+      </iframe>
 
   <div class="connect-icon-links">
     <a
-      href="mailto:example@email.com"
+      href="mailto:contact@sobun.io"
       title="Send me an email"
       aria-label="Email"
     >
       <Icon name="ri:mail-line" size={24} aria-hidden="true" />
     </a>
     <a
-      href="https://github.com/example"
+      href="https://github.com/sobun-io"
       target="_blank"
       rel="noopener noreferrer"
       title="View my GitHub profile"
@@ -36,7 +46,7 @@ const contactUrl = "/contact";
       <Icon name="ri:github-line" size={22} aria-hidden="true" />
     </a>
     <a
-      href="https://linkedin.com/in/example"
+      href="www.linkedin.com/in/julia-march"
       target="_blank"
       rel="noopener noreferrer"
       title="View my LinkedIn profile"
@@ -46,7 +56,7 @@ const contactUrl = "/contact";
     </a>
   </div>
 
-  <div class="button-group">
+  <!--<div class="button-group">
     <Button
       class="button"
       href={contactUrl}
@@ -54,7 +64,7 @@ const contactUrl = "/contact";
       wrapperClass="cta-link"
     />
   </div>
-</div>
+</div> -->
 
 <style>
   p {

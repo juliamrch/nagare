@@ -4,8 +4,9 @@ import Hero from "../components/home/Hero.astro";
 import SectionWrapper from "../components/home/SectionWrapper.astro";
 import AboutMeContent from "../components/home/content/AboutMeContent.astro";
 //import FeaturedWorksContent from "../components/home/content/FeaturedWorksContent.astro";
-//import HighlightsUpdatesContent from "../components/home/content/HighlightsUpdatesContent.astro";
-//import ConnectContent from "../components/home/content/ConnectContent.astro";
+import FeaturedServicesContent from "../components/home/content/FeaturedServicesContent.astro";
+import HighlightsUpdatesContent from "../components/home/content/HighlightsUpdatesContent.astro";
+import ConnectContent from "../components/home/content/ConnectContent.astro";
 ---
 
 <Layout title="Homepage">
@@ -15,19 +16,18 @@ import AboutMeContent from "../components/home/content/AboutMeContent.astro";
     <SectionWrapper>
      <AboutMeContent />
     </SectionWrapper>
-  
-
-<!--     <SectionWrapper>
-      <FeaturedWorksContent />
-    </SectionWrapper>
 
     <SectionWrapper>
-      <HighlightsUpdatesContent />
+      <FeaturedServicesContent />
     </SectionWrapper>
+
+  <!--<SectionWrapper>
+      <HighlightsUpdatesContent />
+    </SectionWrapper> -->
 
     <SectionWrapper>
       <ConnectContent />
-    </SectionWrapper>  -->
+    </SectionWrapper>
   </main>
 </Layout>
 
