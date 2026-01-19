@@ -76,17 +76,23 @@
   let clickListenerAttached = false;
 
   function cleanupTriggers() {
+    console.log("[ScrollIndicator] cleanupTriggers CALLED.");
     if (indicatorScrubTrigger) {
+      console.log("[ScrollIndicator] Killing Scrub Trigger...");
       indicatorScrubTrigger.kill();
       indicatorScrubTrigger = null;
     }
     if (indicatorCallbackTrigger) {
+      console.log("[ScrollIndicator] Killing Callback Trigger...");
       indicatorCallbackTrigger.kill();
       indicatorCallbackTrigger = null;
     }
     if (fadeInTimeout !== null) {
       clearTimeout(fadeInTimeout);
       fadeInTimeout = null;
+      console.log(
+        "[ScrollIndicator] Cleared pending fade-in timeout during cleanup."
+      );
     }
   }
 
@@ -94,6 +100,10 @@
     indicator: HTMLElement,
     pageWrapper: HTMLElement
   ) {
+    console.log("[ScrollIndicator] setupIndicatorAnimation CALLED.");
+
+    console.log("[ScrollIndicator] Setting up new triggers...");
+
     const animation = gsap.fromTo(
       indicator,
       { opacity: 0.6 },
@@ -107,6 +117,7 @@
       animation: animation,
       scrub: 0.5,
     });
+    console.log("[ScrollIndicator] Setup new indicator Scrub Trigger");
 
     const showIndicator = (delay = 0) => {
       if (indicatorScrubTrigger?.isActive) return;
@@ -140,6 +151,7 @@
         }
       },
     });
+    console.log("[ScrollIndicator] Setup new indicator Callback Trigger");
   }
 
   function setupClickListener(
@@ -147,8 +159,12 @@
     pageWrapper: HTMLElement
   ) {
     if (clickListenerAttached) {
+      console.log(
+        "[ScrollIndicator] Click listener already attached. Skipping."
+      );
       return;
     }
+    console.log("[ScrollIndicator] Attaching click listener.");
     indicator.addEventListener("click", () => {
       const currentOpacity = parseFloat(
         window.getComputedStyle(indicator).opacity
@@ -167,6 +183,10 @@
   document.addEventListener(
     "astro:page-load",
     () => {
+      console.log(
+        `[ScrollIndicator] astro:page-load DETECTED on path: "${window.location.pathname}".`
+      );
+
       cleanupTriggers();
 
       const indicatorElement = document.querySelector(
