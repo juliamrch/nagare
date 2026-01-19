@@ -16,12 +16,13 @@
     const isMobileDevice =
       ("maxTouchPoints" in navigator && navigator.maxTouchPoints > 0) ||
       window.innerWidth < 1024;
+    const desktopScale = 1.25;
     const config = {
       numBlobs: isMobileDevice ? 2 : 3,
-      baseLargeMinBlobSize: 820,
-      baseLargeMaxBlobSize: 1300,
-      baseSmallMinBlobSize: 520,
-      baseSmallMaxBlobSize: 860,
+      baseLargeMinBlobSize: isMobileDevice ? 820 : 820 * desktopScale,
+      baseLargeMaxBlobSize: isMobileDevice ? 1300 : 1300 * desktopScale,
+      baseSmallMinBlobSize: isMobileDevice ? 520 : 520 * desktopScale,
+      baseSmallMaxBlobSize: isMobileDevice ? 860 : 860 * desktopScale,
       referenceWidth: 1440,
       minScaleFactor: 0.5,
       maxScaleFactor: 1.5,
@@ -957,6 +958,17 @@
        filter: none; 
       } 
     }
+
+  @media (max-width: 767px) {
+    #dynamic-background-container {
+      filter: blur(10px);
+    }
+    #dynamic-background-container::before {
+      filter: brightness(0.5) contrast(1.05); /* lower = darker */
+      opacity: 0.8; /* higher = stronger image */
+    }
+  }
+  
   
     @media (min-width: 768px) { 
       #dynamic-background-svg {
