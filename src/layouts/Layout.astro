@@ -176,6 +176,19 @@ const showScrollIndicator =
         transform: translateY(0) translateZ(0);
       }
 
+      @media (max-width: 767px) {
+        .scroll-reveal-animate {
+          filter: none;
+          transform: translateY(12px) translateZ(0);
+          transition:
+            opacity 0.4s ease-out,
+            transform 0.4s ease-out;
+        }
+        .scroll-reveal-animate.visible {
+          filter: none;
+        }
+      }
+
       .page-load-initial-state {
         opacity: 0;
         filter: blur(5px);
@@ -259,6 +272,11 @@ const showScrollIndicator =
       gsap.registerPlugin(ScrollTrigger);
 
       function setupSectionAnimations() {
+        const isMobile =
+          ("maxTouchPoints" in navigator && navigator.maxTouchPoints > 0) ||
+          window.innerWidth < 768;
+        if (isMobile) return;
+
         const pageWrapper = document.querySelector(".page-wrapper");
         if (!pageWrapper) {
           console.warn(
