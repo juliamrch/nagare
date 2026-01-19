@@ -17,24 +17,24 @@
       ("maxTouchPoints" in navigator && navigator.maxTouchPoints > 0) ||
       window.innerWidth < 1024;
     const config = {
-      numBlobs: isMobileDevice ? 2 : 4,
-      baseLargeMinBlobSize: 1000,
-      baseLargeMaxBlobSize: 1600,
-      baseSmallMinBlobSize: 600,
-      baseSmallMaxBlobSize: 1000,
+      numBlobs: isMobileDevice ? 2 : 3,
+      baseLargeMinBlobSize: 820,
+      baseLargeMaxBlobSize: 1300,
+      baseSmallMinBlobSize: 520,
+      baseSmallMaxBlobSize: 860,
       referenceWidth: 1440,
       minScaleFactor: 0.5,
       maxScaleFactor: 1.5,
-      // Keep animations lively on mobile
-      speedMultiplier: isMobileDevice ? 0.6 : 1,
+      // Keep animations lighter on mobile
+      speedMultiplier: isMobileDevice ? 0.5 : 0.8,
       mouseInfluenceRadius: 580,
       mouseForce: -800,
       opacity: 0.8,
       enableShapeChanging: false,
-      enableCollisionDetection: true,
-      enableMouseInteraction: true,
+      enableCollisionDetection: false,
+      enableMouseInteraction: !isMobileDevice,
       colorDrift: {
-        enabled: true,
+        enabled: false,
         hueMin: 195,
         hueMax: 230,
         hueAmplitude: 8,
@@ -48,17 +48,20 @@
 
     // Respect user motion preferences
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let animationEnabled = true;
     function applyMotionPreference() {
       if (prefersReducedMotion.matches) {
         // Tone things down significantly
         config.speedMultiplier = 0.25;
         config.enableMouseInteraction = false;
         if (config.colorDrift) config.colorDrift.enabled = false;
+        animationEnabled = false;
       } else {
         // Restore interactive/animated defaults
-        config.speedMultiplier = isMobileDevice ? 1 : 1;
-        config.enableMouseInteraction = true;
-        if (config.colorDrift) config.colorDrift.enabled = true;
+        config.speedMultiplier = isMobileDevice ? 0.5 : 0.8;
+        config.enableMouseInteraction = !isMobileDevice;
+        if (config.colorDrift) config.colorDrift.enabled = false;
+        animationEnabled = true;
       }
     }
     applyMotionPreference();
@@ -128,7 +131,7 @@
     }
 
     // Start a bit higher on mobile to enable more features
-    const initialLevel = isMobileDevice ? 2 : 3;
+    const initialLevel = isMobileDevice ? 1 : 2;
     let currentPerformanceLevel = initialLevel;
     const fpsHistory: number[] = [];
     const maxFpsHistoryLength = 60;
@@ -146,19 +149,19 @@
     let framesInCurrentRange = 0;
     const requiredFramesForSwitch = 30;
 
+    function applyPerformanceLevel(newLevel: number) {
+      currentPerformanceLevel = newLevel;
+      config.enableShapeChanging = newLevel >= 4;
+      config.enableMouseInteraction = newLevel >= 2 && !isMobileDevice;
+      config.enableCollisionDetection = newLevel >= 3;
+      if (config.colorDrift) config.colorDrift.enabled = newLevel >= 4;
+    }
+
     function updatePerformanceLevel(newLevel: number) {
       if (newLevel === currentPerformanceLevel) return;
       if (newLevel < 1 || newLevel > 4) return;
 
-      console.log(
-        `%cFPS Monitor: Switching to Performance Level ${newLevel}.`,
-        "color: orange; font-weight: bold;"
-      );
-      currentPerformanceLevel = newLevel;
-
-      config.enableShapeChanging = newLevel === 4;
-      config.enableMouseInteraction = newLevel >= 2;
-      config.enableCollisionDetection = newLevel >= 3;
+      applyPerformanceLevel(newLevel);
     }
 
     // Disable global hue rotation; keep gentle blue-only drift instead
@@ -342,7 +345,7 @@
       blurFilter.setAttribute("height", "140%");
       const gaussian = document.createElementNS(svgNS, "feGaussianBlur");
       gaussian.setAttribute("in", "SourceGraphic");
-      gaussian.setAttribute("stdDeviation", "14");
+      gaussian.setAttribute("stdDeviation", "10");
       blurFilter.appendChild(gaussian);
 
       // Group-level soften filter to blend blobs together after composition
@@ -354,7 +357,7 @@
       groupFilter.setAttribute("height", "120%");
       const groupBlur = document.createElementNS(svgNS, "feGaussianBlur");
       groupBlur.setAttribute("in", "SourceGraphic");
-      groupBlur.setAttribute("stdDeviation", "6");
+      groupBlur.setAttribute("stdDeviation", "4");
       groupFilter.appendChild(groupBlur);
       defs.appendChild(groupFilter);
       defs.appendChild(blurFilter);
@@ -390,8 +393,6 @@
       } else {
         const selectedSchemeName =
           schemeNames[Math.floor(Math.random() * schemeNames.length)];
-        console.log(`Using scheme: ${selectedSchemeName}`);
-
         const availableColors = colorScheme[selectedSchemeName]
           ? [...colorScheme[selectedSchemeName]]
           : [];
@@ -416,11 +417,6 @@
             );
           }
 
-          if (shuffledColors.length < config.numBlobs) {
-            console.warn(
-              `Scheme '${selectedSchemeName}' has only ${shuffledColors.length} colors. Repeating colors for ${config.numBlobs} blobs.`
-            );
-          }
         }
       }
 
@@ -699,6 +695,7 @@
 
     function animate(timestamp: number) {
       requestAnimationFrame(animate);
+      if (!animationEnabled || document.hidden) return;
 
       const elapsedSinceLastExecution = timestamp - lastLogicExecutionTime;
       if (elapsedSinceLastExecution < targetFrameInterval) {
@@ -850,6 +847,7 @@
       targetOffset.y = 0;
     });
 
+    applyPerformanceLevel(initialLevel);
     initBlobs();
     requestAnimationFrame(animate);
 
